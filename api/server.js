@@ -1,19 +1,9 @@
-// Import the built server entry from TanStack Start
-let handler;
+import handlerMod from "../dist/server/server.js";
 
-async function getHandler() {
-  if (!handler) {
-    // The built server entry from `npm run build`
-    const mod = await import("../dist/server/server.js");
-    handler = mod.default ?? mod;
-  }
-  return handler;
-}
+const handler = handlerMod.default ?? handlerMod;
 
 export default async function (req, res) {
   try {
-    const h = await getHandler();
-    // Convert Node req/res to Web Request/Response
     const protocol = req.headers["x-forwarded-proto"] || "http";
     const host = req.headers["x-forwarded-host"] || req.headers.host;
     const url = `${protocol}://${host}${req.url}`;
@@ -25,7 +15,7 @@ export default async function (req, res) {
       duplex: "half",
     });
     
-    const webRes = await h.fetch(webReq, {}, {});
+    const webRes = await handler.fetch(webReq, {}, {});
     
     res.statusCode = webRes.status;
     webRes.headers.forEach((v, k) => res.setHeader(k, v));
