@@ -1,0 +1,163 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-display: "Fraunces", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.2 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 15%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(1 0 0 / 30%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ── Luxury gradient background ── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 60% 20%; }
+  50%  { background-position: 100% 80%; }
+  75%  { background-position: 40% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes gradient-shift-light {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 70% 30%; }
+  50%  { background-position: 100% 70%; }
+  75%  { background-position: 30% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* ── Dark mode gradient (default) ── */
+.gradient-bg {
+  position: relative;
+  background-color: #000;
+  transition: background-color 0.7s ease;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%,  rgba(45, 27, 80, 0.75) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 90%,  rgba(20, 14, 55, 0.80) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 70% 15%,  rgba(90, 55, 20, 0.30) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 10% 85%,  rgba(12, 30, 60, 0.70) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(5, 5, 18, 1) 50%, transparent 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 20s ease-in-out infinite;
+}
+
+/* ── Light mode gradient ── */
+html.light-mode .gradient-bg {
+  background-color: #fdf6e3;
+}
+
+html.light-mode .gradient-bg::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%,  rgba(255, 210, 100, 0.55) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 55% at 85% 80%,  rgba(240, 180, 60, 0.40) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 70% 5%,   rgba(255, 230, 140, 0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 65% 55% at 5% 90%,   rgba(210, 160, 50, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(253, 246, 227, 1) 35%, transparent 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift-light 20s ease-in-out infinite;
+}
+
+/* ── Light mode body ── */
+html.light-mode body {
+  background-color: #fdf6e3;
+  color: #5c3a00;
+}
+
+/* ── Smooth noise grain ── */
+.gradient-bg::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ── Light mode text overrides ── */
+html.light-mode .text-white            { color: #5c3a00 !important; }
+html.light-mode .text-white\/80        { color: rgba(92, 58, 0, 0.80) !important; }
+html.light-mode .text-white\/85        { color: rgba(92, 58, 0, 0.85) !important; }
+html.light-mode .text-white\/65        { color: rgba(92, 58, 0, 0.65) !important; }
+html.light-mode .text-white\/60        { color: rgba(92, 58, 0, 0.60) !important; }
+html.light-mode .text-white\/55        { color: rgba(92, 58, 0, 0.55) !important; }
+html.light-mode .text-white\/50        { color: rgba(92, 58, 0, 0.50) !important; }
+html.light-mode .border-white\/10      { border-color: rgba(92, 58, 0, 0.15) !important; }
+html.light-mode .border-white\/70      { border-color: rgba(160, 100, 0, 0.40) !important; }
+html.light-mode .bg-black\/95          { background-color: rgba(253, 246, 227, 0.97) !important; }
+html.light-mode .bg-white              { background-color: #f5e6b8 !important; }
+html.light-mode .text-black            { color: #5c3a00 !important; }
+html.light-mode .text-black\/55        { color: rgba(92, 58, 0, 0.55) !important; }
+html.light-mode .text-black\/65        { color: rgba(92, 58, 0, 0.65) !important; }
+
+/* Light mode: Pre-order button border */
+html.light-mode .border-white\/70 { border-color: rgba(140, 90, 0, 0.55) !important; }
