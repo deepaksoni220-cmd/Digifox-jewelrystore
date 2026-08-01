@@ -36,6 +36,7 @@ export function RingModel({ spin = false }: { spin?: boolean }) {
     const k = TARGET_SIZE / maxDim;
     clone.position.set(-center.x * k, -center.y * k, -center.z * k);
     clone.scale.setScalar(k);
+    // No material overrides — use original GLB colours as designed.
     return clone;
   }, [scene]);
 
