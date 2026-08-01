@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/hooks/useTheme";
 
 export function TopNav() {
@@ -16,10 +17,10 @@ export function TopNav() {
         <div className="flex items-center gap-5">
           {/* Desktop nav */}
           <nav className={`hidden gap-7 text-[11px] uppercase tracking-[0.18em] md:flex transition-colors duration-500 ${isLight ? "text-amber-800/70" : "text-white/80"}`}>
-            <a href="#" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Home</a>
-            <a href="#" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Shop</a>
-            <a href="#" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>About</a>
-            <a href="#" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Contact</a>
+            <Link to="/" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Home</Link>
+            <Link to="/shop" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Shop</Link>
+            <Link to="/about" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>About</Link>
+            <Link to="/contact" className={`transition-colors ${isLight ? "hover:text-amber-900" : "hover:text-white"}`}>Contact</Link>
           </nav>
 
           {/* Theme toggle — premium icon button */}
@@ -94,16 +95,34 @@ export function TopNav() {
           isLight ? "bg-white/95" : "bg-black/95"
         } ${menuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
       >
-        {["Home", "Shop", "About", "Contact"].map((item) => (
-          <a
-            key={item}
-            href="#"
-            onClick={() => setMenuOpen(false)}
-            className={`font-display text-4xl italic tracking-tight transition-colors ${isLight ? "text-gray-800 hover:text-gray-900" : "text-white/90 hover:text-white"}`}
-          >
-            {item}
-          </a>
-        ))}
+        <Link
+          to="/"
+          onClick={() => setMenuOpen(false)}
+          className={`font-display text-4xl italic tracking-tight transition-colors ${isLight ? "text-gray-800 hover:text-gray-900" : "text-white/90 hover:text-white"}`}
+        >
+          Home
+        </Link>
+        <Link
+          to="/shop"
+          onClick={() => setMenuOpen(false)}
+          className={`font-display text-4xl italic tracking-tight transition-colors ${isLight ? "text-gray-800 hover:text-gray-900" : "text-white/90 hover:text-white"}`}
+        >
+          Shop
+        </Link>
+        <Link
+          to="/about"
+          onClick={() => setMenuOpen(false)}
+          className={`font-display text-4xl italic tracking-tight transition-colors ${isLight ? "text-gray-800 hover:text-gray-900" : "text-white/90 hover:text-white"}`}
+        >
+          About
+        </Link>
+        <Link
+          to="/contact"
+          onClick={() => setMenuOpen(false)}
+          className={`font-display text-4xl italic tracking-tight transition-colors ${isLight ? "text-gray-800 hover:text-gray-900" : "text-white/90 hover:text-white"}`}
+        >
+          Contact
+        </Link>
         <PreOrderButton />
       </div>
     </>

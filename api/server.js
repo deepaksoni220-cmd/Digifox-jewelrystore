@@ -34,6 +34,7 @@ export default async function (req, res) {
   } catch (err) {
     console.error("Vercel Serverless Error:", err);
     res.statusCode = 500;
-    res.end("Internal Server Error");
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Internal Server Error:\n\n" + (err.stack || err.toString()));
   }
 }
