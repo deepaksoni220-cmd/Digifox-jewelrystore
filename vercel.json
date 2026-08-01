@@ -10,6 +10,14 @@
   },
   "rewrites": [
     {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/ring.glb",
+      "destination": "/ring.glb"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api/server.js"
     }
