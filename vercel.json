@@ -1,21 +1,12 @@
 {
-  "version": 2,
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "framework": null,
   "outputDirectory": "dist/client",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/ring.glb",
-      "dest": "/ring.glb"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/server.js"
+      "source": "/(.*)",
+      "destination": "/api/server.js"
     }
   ]
 }

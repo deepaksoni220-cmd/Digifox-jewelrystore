@@ -22,6 +22,7 @@ export default async function (req, res) {
       method: req.method,
       headers: req.headers,
       body: ["GET", "HEAD"].includes(req.method) ? undefined : req,
+      duplex: "half",
     });
     
     const webRes = await h.fetch(webReq, {}, {});
