@@ -142,3 +142,17 @@ export function PreOrderButton({ dark = false }: { dark?: boolean }) {
     </button>
   );
 }
+
+export function AddToCartButton({ dark = false }: { dark?: boolean }) {
+  return (
+    <button
+      className={`pointer-events-auto inline-flex items-center justify-center border px-7 py-3 text-[10px] uppercase tracking-[0.22em] transition-colors ${
+        dark
+          ? "border-black bg-black text-white hover:bg-white hover:text-black"
+          : "border-white/70 text-white hover:bg-white hover:text-black"
+      }`}
+    >
+      Add to Cart
+    </button>
+  );
+}

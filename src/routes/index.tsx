@@ -5,7 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { RingCanvas, ringState } from "@/components/scene/RingCanvas";
-import { TopNav, PreOrderButton } from "@/components/site/TopNav";
+import { TopNav, PreOrderButton, AddToCartButton } from "@/components/site/TopNav";
+import { Footer } from "@/components/site/Footer";
 import { useTheme } from "@/hooks/useTheme";
 
 if (typeof window !== "undefined") {
@@ -25,6 +26,37 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+const products = [
+  {
+    id: "solitaire-ring",
+    name: "The Signature Solitaire",
+    description: "Round Brilliant · 1.84 ct",
+    price: "$700",
+    image: "/products/solitaire-ring.jpg",
+  },
+  {
+    id: "tennis-bracelet",
+    name: "Eternal Tennis Bracelet",
+    description: "18k White Gold · 5.20 tcw",
+    price: "$700",
+    image: "/products/tennis-bracelet.jpg",
+  },
+  {
+    id: "eternity-band",
+    name: "Lumière Eternity Band",
+    description: "Platinum · 3.10 tcw",
+    price: "$700",
+    image: "/products/eternity-band.jpg",
+  },
+  {
+    id: "solitaire-pendant",
+    name: "Classic Solitaire Pendant",
+    description: "Round Brilliant · 1.00 ct",
+    price: "$700",
+    image: "/products/solitaire-pendant.jpg",
+  },
+];
 
 // Ring transform keyframes (tuned against the reference film). Each keyframe is
 // pinned to an explicit scroll position `at` (0 = page top, 1 = page bottom).
@@ -230,19 +262,21 @@ function Index() {
   }, []);
 
   return (
-    <div ref={root} className={`gradient-bg relative w-full transition-colors duration-700 ${isLight ? "text-gray-900" : "text-white"}`}>
+    <div className={`gradient-bg relative w-full transition-colors duration-700 ${isLight ? "text-gray-900" : "text-white"}`}>
       <TopNav />
 
-      {/* Fixed 3D ring layer — a background sculpture behind all section content */}
-      <div className="pointer-events-none fixed inset-0 z-10">
-        <RingCanvas />
-      </div>
+      <div ref={root} className="relative w-full">
+        {/* Sticky 3D ring layer — scrolls away after the cinematic journey */}
+        <div className="pointer-events-none sticky top-0 h-screen w-full z-10">
+          <RingCanvas />
+        </div>
 
-      {/* ============ HERO ============ */}
-      <section
-        data-section="hero"
-        className="relative z-20 flex h-screen items-center justify-center px-4 md:px-8"
-      >
+        <div className="relative z-20 -mt-[100vh]">
+          {/* ============ HERO ============ */}
+          <section
+            data-section="hero"
+            className="relative flex h-screen items-center justify-center px-4 md:px-8"
+          >
         <GlassPanel>
           <div className="relative z-20 flex h-full flex-col justify-end gap-5 p-6 pb-8 md:p-12 md:pb-10">
             {/* Main headline block */}
@@ -439,6 +473,80 @@ function Index() {
           </div>
         </GlassPanel>
       </section>
+      </div>
+      </div>
+
+      {/* ============ PRODUCTS ============ */}
+      <section
+        data-section="products"
+        className="relative z-30 mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-32"
+      >
+        <div className="mb-16 text-center">
+          <div className="mb-4 text-[10px] uppercase tracking-[0.28em] opacity-60">
+            The Collection
+          </div>
+          <h2 className="font-display text-4xl leading-[0.9] tracking-tight md:text-5xl">
+            CURATED FOR
+            <br />
+            <span className="italic font-normal opacity-80">eternity</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((product) => (
+            <div key={product.id} className="group relative">
+              <div className={`overflow-hidden aspect-[3/4] w-full bg-cover bg-center ${isLight ? "border-amber-900/10" : "border-white/10"} border`}>
+                <div 
+                  className="h-full w-full bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110" 
+                  style={{ backgroundImage: `url('${product.image}')` }} 
+                />
+              </div>
+              
+              <div className="mt-5 flex flex-col gap-1 text-center">
+                <h3 className="font-display text-xl tracking-wide">{product.name}</h3>
+                <p className="text-[10px] uppercase tracking-[0.24em] opacity-60">{product.description}</p>
+                <p className="mt-2 text-sm font-medium opacity-80">{product.price}</p>
+              </div>
+
+              <div className="mt-6 flex justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <AddToCartButton dark={isLight} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ ABOUT US ============ */}
+      <section
+        data-section="about"
+        className={`relative z-30 mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-32 border-t ${isLight ? "border-amber-900/10" : "border-white/10"}`}
+      >
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 items-center">
+          <div>
+            <div className="mb-4 text-[10px] uppercase tracking-[0.28em] opacity-60">
+              Our Story
+            </div>
+            <h2 className="font-display text-4xl leading-[0.9] tracking-tight md:text-5xl mb-8">
+              SHAPED BY HAND,
+              <br />
+              <span className="italic font-normal opacity-80">finished by light.</span>
+            </h2>
+            <div className="flex flex-col gap-6 text-[13px] leading-relaxed tracking-[0.05em] opacity-80 md:text-sm">
+              <p>
+                Aurelle was founded on a singular belief: true luxury does not shout; it waits to be noticed. We approach jewelry making not as manufacturing, but as sculpture. Every facet, every prong, and every band is considered for how it will interact with the world around it.
+              </p>
+              <p>
+                Our artisans spend hundreds of hours refining a single design, stripping away the unnecessary until only the essential remains. We do this because a piece of jewelry is never just an object. It is a permanent record of a moment, a person, a life.
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <div className={`aspect-[4/3] w-full max-w-lg bg-cover bg-center ${isLight ? "border-amber-900/10" : "border-white/10"} border`} style={{ backgroundImage: "url('/products/eternity-band.jpg')" }} />
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
