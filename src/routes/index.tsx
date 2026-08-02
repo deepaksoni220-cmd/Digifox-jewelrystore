@@ -10,6 +10,7 @@ import { TopNav, PreOrderButton, AddToCartButton } from "@/components/site/TopNa
 import { useCart } from "@/contexts/CartContext";
 import { Footer } from "@/components/site/Footer";
 import { useTheme } from "@/hooks/useTheme";
+import { ChevronDown } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -311,7 +312,7 @@ function Index() {
             {/* Bottom bar */}
             <div className="flex items-center justify-between border-t border-white/10 pt-4 text-[10px] uppercase tracking-[0.24em] text-white/50" data-reveal>
               <span>Scroll to explore more</span>
-              <span>001 / 006</span>
+              <ChevronDown className="w-4 h-4 animate-bounce" />
             </div>
           </div>
         </GlassPanel>

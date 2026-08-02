@@ -14,13 +14,13 @@ export default defineConfig({
   },
   vite: {
     ssr: {
-      // Bundle ALL npm dependencies into the SSR output.  On Vercel's
-      // serverless runtime the `dist/server/` files are the only JS shipped
+      // Bundle ALL npm dependencies into the SSR output ONLY in production.
+      // On Vercel's serverless runtime the `dist/server/` files are the only JS shipped
       // to the function — bare-specifier imports for packages like h3-v2,
       // seroval, three, etc. can't resolve because node_modules isn't
-      // reliably included.  `noExternal: true` tells Vite to inline
-      // everything except Node built-ins.
-      noExternal: true,
+      // reliably included.
+      // During local dev (`vite dev`), bundling everything breaks React (module is not defined).
+      noExternal: process.env.NODE_ENV === "production" ? true : undefined,
     },
   },
 });
