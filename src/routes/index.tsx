@@ -287,7 +287,7 @@ function Index() {
             className="relative flex h-screen items-center justify-center px-4 md:px-8"
           >
         <GlassPanel>
-          <div className="relative z-20 flex h-full flex-col justify-end gap-5 p-6 pb-8 md:p-12 md:pb-10">
+          <div className="relative z-20 flex h-full flex-col justify-end gap-5 p-6 pb-2 translate-y-[6vh] md:translate-y-0 md:p-12 md:pb-10">
             {/* Main headline block */}
             <div data-reveal>
               <div className="mb-3 text-[10px] uppercase tracking-[0.28em] text-white/60">
