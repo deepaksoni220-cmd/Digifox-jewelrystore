@@ -5,7 +5,9 @@
   "outputDirectory": "dist/client",
   "functions": {
     "api/server.js": {
-      "includeFiles": "dist/server/**"
+      "includeFiles": "dist/server/**",
+      "memory": 1024,
+      "maxDuration": 30
     }
   },
   "rewrites": [
@@ -16,6 +18,10 @@
     {
       "source": "/ring.glb",
       "destination": "/ring.glb"
+    },
+    {
+      "source": "/products/(.*)",
+      "destination": "/products/$1"
     },
     {
       "source": "/(.*)",
