@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
-import { RingCanvas, ringState } from "@/components/scene/RingCanvas";
+import { ringState } from "@/components/scene/ringState";
+const RingCanvas = lazy(() => import("@/components/scene/RingCanvas").then(m => ({ default: m.RingCanvas })));
 import { TopNav, PreOrderButton, AddToCartButton } from "@/components/site/TopNav";
 import { Footer } from "@/components/site/Footer";
 import { useTheme } from "@/hooks/useTheme";
@@ -270,7 +271,11 @@ function Index() {
       <div ref={root} className="relative w-full">
         {/* Sticky 3D ring layer — scrolls away after the cinematic journey */}
         <div className="pointer-events-none sticky top-0 h-screen w-full z-10">
-          {mounted && <RingCanvas />}
+          {mounted && (
+            <Suspense fallback={null}>
+              <RingCanvas />
+            </Suspense>
+          )}
         </div>
 
         <div className="relative z-20 -mt-[100vh]">
