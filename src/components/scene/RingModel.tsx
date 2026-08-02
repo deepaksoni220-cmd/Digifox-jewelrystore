@@ -53,4 +53,6 @@ export function RingModel({ spin = false }: { spin?: boolean }) {
   );
 }
 
-useGLTF.preload(MODEL_URL);
+if (typeof window !== "undefined") {
+  useGLTF.preload(MODEL_URL);
+}

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -91,10 +91,12 @@ const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
 
 function Index() {
   const root = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const isLight = theme === "light";
 
   useEffect(() => {
+    setMounted(true);
     if (!root.current) return;
 
     // ?card → embedded as a non-scrollable gallery thumbnail. Instead of waiting
@@ -268,7 +270,7 @@ function Index() {
       <div ref={root} className="relative w-full">
         {/* Sticky 3D ring layer — scrolls away after the cinematic journey */}
         <div className="pointer-events-none sticky top-0 h-screen w-full z-10">
-          <RingCanvas />
+          {mounted && <RingCanvas />}
         </div>
 
         <div className="relative z-20 -mt-[100vh]">
