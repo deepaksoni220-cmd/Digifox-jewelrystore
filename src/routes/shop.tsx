@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useTheme } from "@/hooks/useTheme";
-import { TopNav, PreOrderButton } from "@/components/site/TopNav";
+import { TopNav, AddToCartButton } from "@/components/site/TopNav";
+import { useCart } from "@/contexts/CartContext";
 import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/shop")({
@@ -62,6 +63,7 @@ const itemVariants = {
 function Shop() {
   const { theme } = useTheme();
   const isLight = theme === "light";
+  const { addToCart } = useCart();
 
   return (
     <div className={`min-h-screen transition-colors duration-700 ${isLight ? "bg-[#f5f2eb] text-gray-900" : "bg-[#050505] text-white"}`}>
@@ -105,7 +107,15 @@ function Shop() {
               </div>
 
               <div className="mt-6 flex justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <PreOrderButton dark={isLight} />
+                <AddToCartButton 
+                  dark={isLight} 
+                  onClick={() => addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image
+                  })} 
+                />
               </div>
             </motion.div>
           ))}

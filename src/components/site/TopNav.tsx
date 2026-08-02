@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/hooks/useTheme";
+import { useCart } from "@/contexts/CartContext";
+import { ShoppingBag } from "lucide-react";
 
 export function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
+  const { itemCount, setIsCartOpen } = useCart();
   const isLight = theme === "light";
 
   return (
@@ -76,6 +79,26 @@ export function TopNav() {
             </svg>
           </button>
 
+          {/* Cart toggle */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            aria-label="Open cart"
+            className={`pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-500 ${
+              isLight
+                ? "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                : "bg-white/10 hover:bg-white/20 text-white"
+            }`}
+          >
+            <ShoppingBag className="w-[18px] h-[18px]" />
+            {itemCount > 0 && (
+              <span className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold ${
+                isLight ? "bg-amber-600 text-white" : "bg-white text-black"
+              }`}>
+                {itemCount}
+              </span>
+            )}
+          </button>
+
           {/* Mobile hamburger */}
           <button
             className={`pointer-events-auto flex flex-col gap-[5px] md:hidden transition-colors duration-500`}
@@ -129,9 +152,10 @@ export function TopNav() {
   );
 }
 
-export function PreOrderButton({ dark = false }: { dark?: boolean }) {
+export function PreOrderButton({ dark = false, onClick }: { dark?: boolean; onClick?: () => void }) {
   return (
     <button
+      onClick={onClick}
       className={`pointer-events-auto inline-flex items-center justify-center border px-7 py-3 text-[10px] uppercase tracking-[0.22em] transition-colors ${
         dark
           ? "border-black bg-black text-white hover:bg-white hover:text-black"
@@ -143,9 +167,10 @@ export function PreOrderButton({ dark = false }: { dark?: boolean }) {
   );
 }
 
-export function AddToCartButton({ dark = false }: { dark?: boolean }) {
+export function AddToCartButton({ dark = false, onClick }: { dark?: boolean; onClick?: () => void }) {
   return (
     <button
+      onClick={onClick}
       className={`pointer-events-auto inline-flex items-center justify-center border px-7 py-3 text-[10px] uppercase tracking-[0.22em] transition-colors ${
         dark
           ? "border-black bg-black text-white hover:bg-white hover:text-black"

@@ -7,6 +7,7 @@ import "lenis/dist/lenis.css";
 import { ringState } from "@/components/scene/ringState";
 const RingCanvas = lazy(() => import("@/components/scene/RingCanvas").then(m => ({ default: m.RingCanvas })));
 import { TopNav, PreOrderButton, AddToCartButton } from "@/components/site/TopNav";
+import { useCart } from "@/contexts/CartContext";
 import { Footer } from "@/components/site/Footer";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -94,6 +95,7 @@ function Index() {
   const root = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
+  const { addToCart } = useCart();
   const isLight = theme === "light";
 
   useEffect(() => {
@@ -516,7 +518,15 @@ function Index() {
               </div>
 
               <div className="mt-6 flex justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <AddToCartButton dark={isLight} />
+                <AddToCartButton 
+                  dark={isLight} 
+                  onClick={() => addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image
+                  })} 
+                />
               </div>
             </div>
           ))}

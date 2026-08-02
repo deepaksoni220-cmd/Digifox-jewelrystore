@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { ThemeProvider } from "../hooks/useTheme";
+import { CartProvider } from "../contexts/CartContext";
+import { CartDrawer } from "../components/shop/CartDrawer";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -117,10 +119,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </ThemeProvider>
+      <CartProvider>
+        <ThemeProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <CartDrawer />
+        </ThemeProvider>
+      </CartProvider>
     </QueryClientProvider>
   );
 }
