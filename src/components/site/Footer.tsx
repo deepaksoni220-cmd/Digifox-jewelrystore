@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/hooks/useTheme";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -16,6 +17,17 @@ export function Footer() {
           <p className="text-[11px] uppercase tracking-[0.2em] opacity-60">
             Shaped by hand.<br />Finished by light.
           </p>
+          <div className="flex gap-4 mt-2">
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" className="opacity-60 hover:opacity-100 transition-opacity">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="opacity-60 hover:opacity-100 transition-opacity">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube" className="opacity-60 hover:opacity-100 transition-opacity">
+              <Youtube className="w-5 h-5 -mt-[2px]" />
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col gap-4">
